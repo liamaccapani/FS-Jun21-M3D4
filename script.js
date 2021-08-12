@@ -31,6 +31,7 @@
 
 /* Global variables 🌍 */
 const row = document.querySelector('.row')
+let booksArray = []
 
 window.onload = () => {
     fetch('https://striveschool-api.herokuapp.com/books')
@@ -39,7 +40,7 @@ window.onload = () => {
     })
     .then(function (jsonBooks) {
         console.log(jsonBooks)
-
+        booksArray = jsonBooks
         displayBooks(jsonBooks)
     })
     .catch(function (err) {
@@ -47,30 +48,55 @@ window.onload = () => {
     })
 }
 
-const displayBooks = function(array){ //array = jsonBooks, element = jsonBooks[i]
-    array.forEach(element => {
-        row.innerHTML += `
-        <div class="col-12 col-sm-6 col-md-3 mb-3 pr-2">
-            <div class="card mb-4 shadow-sm h-100">
-                <img src=${element.img} alt="some pic">
-                <div class="card-body">
-                    <h5 class="card-title">${element.title}</h5>
-                    <p class="card-text">Price: ${element.price}</p>
-                    <div class="d-flex justify-content-between align-items-center">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-outline-secondary onclick="changeStyle()">
-                            Add
-                            </button>
-                        </div>
-                        <small class="text-muted">${element.category}</small>
-                    </div>
-                </div>
-                <button class="btn btn-primary">Skip</button>
-            </div>
-        </div>
-       `
-    });
+const displayBooks = function(booksArray){
+    row.innerHTML = booksArray.map(book =>
+            `
+            <div class="col-12 col-sm-6 col-md-3 mb-3 pr-2">
+             <div class="card mb-4 shadow-sm h-100">
+                 <img src=${book.img} alt="some pic">
+                 <div class="card-body">
+                     <h5 class="card-title">${book.title}</h5>
+                     <p class="card-text">Price: ${book.price}</p>
+                     <div class="d-flex justify-content-between align-items-center">
+                         <div class="btn-group">
+                             <button type="button" class="btn btn-sm btn-outline-secondary onclick="changeStyle()">
+                             Add
+                             </button>
+                         </div>
+                         <small class="text-muted">${book.category}</small>
+                     </div>
+                 </div>
+                 <button class="btn btn-primary">Skip</button>
+             </div>
+         </div>
+         `    
+    ).join('')
 }
+
+// const displayBooks = function(array){ //array = jsonBooks, element = jsonBooks[i]
+//     array.forEach(element => {
+//         row.innerHTML += `
+//         <div class="col-12 col-sm-6 col-md-3 mb-3 pr-2">
+//             <div class="card mb-4 shadow-sm h-100">
+//                 <img src=${element.img} alt="some pic">
+//                 <div class="card-body">
+//                     <h5 class="card-title">${element.title}</h5>
+//                     <p class="card-text">Price: ${element.price}</p>
+//                     <div class="d-flex justify-content-between align-items-center">
+//                         <div class="btn-group">
+//                             <button type="button" class="btn btn-sm btn-outline-secondary onclick="changeStyle()">
+//                             Add
+//                             </button>
+//                         </div>
+//                         <small class="text-muted">${element.category}</small>
+//                     </div>
+//                 </div>
+//                 <button class="btn btn-primary">Skip</button>
+//             </div>
+//         </div>
+//        `
+//     });
+// }
 
 
 // const changeStyle = function(element){
