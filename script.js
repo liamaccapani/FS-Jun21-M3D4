@@ -44,7 +44,7 @@ window.onload = () => {
         displayBooks(jsonBooks)
     })
     .catch(function (err) {
-        alert(err) //do i get the type error and the code? like 404?
+        alert(err) //i get the error here
     })
 }
 
