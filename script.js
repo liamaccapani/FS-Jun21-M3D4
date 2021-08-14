@@ -33,27 +33,33 @@
 const row = document.querySelector('.row')
 let booksArray = []
 
+
+// Fetches book && displays them
 window.onload = () => {
     fetch('https://striveschool-api.herokuapp.com/books')
     .then(function (res){
         return res.json()
     })
     .then(function (jsonBooks) {
-        console.log(jsonBooks)
+        //console.log(jsonBooks)
         booksArray = jsonBooks
-        displayBooks(jsonBooks)
+        displayBooks(booksArray)
     })
     .catch(function (err) {
-        alert(err) //i get the error here
+        alert(err)
     })
+
+    displayBooks(booksArray)
 }
 
-const displayBooks = function(booksArray){
-    row.innerHTML = booksArray.map(book =>
+
+// Creates divs for books && pushes them in booksArray
+const displayBooks = function(array){
+    row.innerHTML = array.map(book =>
             `
             <div class="col-12 col-sm-6 col-md-3 mb-3 pr-2">
              <div class="card mb-4 shadow-sm h-100">
-                 <img src=${book.img} alt="some pic">
+                 <img src=${book.img} alt="${book.title}" class="img-fluid">
                  <div class="card-body">
                      <h5 class="card-title">${book.title}</h5>
                      <p class="card-text">Price: ${book.price}</p>
@@ -66,13 +72,41 @@ const displayBooks = function(booksArray){
                          <small class="text-muted">${book.category}</small>
                      </div>
                  </div>
-                 <button class="btn btn-primary">Skip</button>
+                 <button class="btn btn-primary" onclick="removeBook(event)">Skip</button>
              </div>
          </div>
          `    
     ).join('')
+
+    console.log(array)
 }
 
+
+//Removes book (try out also other ways)
+const removeBook = function(ev){
+    const card = ev.target.closest('.card')
+    card.remove()
+}
+
+
+// const filterBooks = function(query){
+//     if(query.length > 2){
+//         // const filteredBooks = booksArray.filter(book => {
+//         //     book.title.toLowerCase().includes(query.toLowerCase())
+//         // })
+//         console.log(query)
+//     } else {alert('noooope')}
+
+//     // displayBooks(filteredBooks)
+// }
+
+// const searchBooks = function(query){
+
+// }
+
+
+// displayBooks with forEach
+/*
 // const displayBooks = function(array){ //array = jsonBooks, element = jsonBooks[i]
 //     array.forEach(element => {
 //         row.innerHTML += `
@@ -97,7 +131,7 @@ const displayBooks = function(booksArray){
 //        `
 //     });
 // }
-
+*/
 
 // const changeStyle = function(element){
 //     document.getElementById(`${element.asin}`).style.backgroundColor = red;
