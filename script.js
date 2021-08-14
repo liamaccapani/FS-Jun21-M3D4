@@ -41,7 +41,7 @@ window.onload = () => {
         return res.json()
     })
     .then(function (jsonBooks) {
-        //console.log(jsonBooks)
+        // console.log(jsonBooks)
         booksArray = jsonBooks
         displayBooks(booksArray)
     })
@@ -54,10 +54,40 @@ window.onload = () => {
 
 
 // Creates divs for books && pushes them in booksArray
-const displayBooks = function(array){
-    row.innerHTML = array.map(book =>
-            `
-            <div class="col-12 col-sm-6 col-md-3 mb-3 pr-2">
+/*
+// const displayBooks = function(array){
+//     row.innerHTML = array.map(book =>
+//             `
+//             <div class="col-12 col-sm-6 col-md-3 mb-3 pr-2">
+//              <div class="card mb-4 shadow-sm h-100">
+//                  <img src=${book.img} alt="${book.title}" class="img-fluid">
+//                  <div class="card-body">
+//                      <h5 class="card-title">${book.title}</h5>
+//                      <p class="card-text">Price: ${book.price}</p>
+//                      <div class="d-flex justify-content-between align-items-center">
+//                          <div class="btn-group">
+//                              <button type="button" class="btn btn-sm btn-outline-secondary onclick="changeStyle()">
+//                              Add
+//                              </button>
+//                          </div>
+//                          <small class="text-muted">${book.category}</small>
+//                      </div>
+//                  </div>
+//                  <button class="btn btn-primary" onclick="removeBook(event)">Skip</button>
+//              </div>
+//          </div>
+//          `    
+//     ).join('')
+
+//     console.log(array)
+// }
+*/
+
+const displayBooks = function(booksArr){
+    row.innerHTML = ''
+    booksArr.forEach(book => {
+        const bookCard = `
+        <div class="col-12 col-sm-6 col-md-3 mb-3 pr-2">
              <div class="card mb-4 shadow-sm h-100">
                  <img src=${book.img} alt="${book.title}" class="img-fluid">
                  <div class="card-body">
@@ -75,38 +105,36 @@ const displayBooks = function(array){
                  <button class="btn btn-primary" onclick="removeBook(event)">Skip</button>
              </div>
          </div>
-         `    
-    ).join('')
-
-    console.log(array)
+        `
+        row.innerHTML += bookCard
+    });
 }
-
 
 //Removes book (try out also other ways)
 const removeBook = function(ev){
-    const card = ev.target.closest('.card')
-    card.remove()
+    // const card = ev.target.closest('.card')
+    // card.remove()
+    // ev.target.parentNode.parentNode.parentNode.parentNode.remove(); //removes ALL the cards
+    ev.target.parentNode.remove()
 }
 
 
-// const filterBooks = function(query){
-//     if(query.length > 2){
-//         // const filteredBooks = booksArray.filter(book => {
-//         //     book.title.toLowerCase().includes(query.toLowerCase())
-//         // })
-//         console.log(query)
-//     } else {alert('noooope')}
+// 🛑🛑🔥 Doesn't work unless I open the dev tools or i click on the console
+const filterBooks = function(query){
+    if(query.length > 2){
+        // const filteredBooks = booksArray.filter(book => {
+        //     book.title.toLowerCase().includes(query.toLowerCase())
+        // })
 
-//     // displayBooks(filteredBooks)
-// }
-
-// const searchBooks = function(query){
-
-// }
+        // displayBooks(filteredBooks)
+        console.log(query)
+        
+    } else {console.log('noooope')}
+}
 
 
-// displayBooks with forEach
-/*
+////////////////////// FOREACH #1
+
 // const displayBooks = function(array){ //array = jsonBooks, element = jsonBooks[i]
 //     array.forEach(element => {
 //         row.innerHTML += `
@@ -131,7 +159,7 @@ const removeBook = function(ev){
 //        `
 //     });
 // }
-*/
+
 
 // const changeStyle = function(element){
 //     document.getElementById(`${element.asin}`).style.backgroundColor = red;
