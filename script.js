@@ -32,6 +32,7 @@
 /* Global variables 🌍 */
 const row = document.querySelector('.row')
 let booksArray = []
+let filteredBooks = []
 
 
 // Fetches book && displays them
@@ -46,10 +47,8 @@ window.onload = () => {
         displayBooks(booksArray)
     })
     .catch(function (err) {
-        alert(err)
+        console.error(err)
     })
-
-    displayBooks(booksArray)
 }
 
 
@@ -95,7 +94,7 @@ const displayBooks = function(booksArr){
                      <p class="card-text">Price: ${book.price}</p>
                      <div class="d-flex justify-content-between align-items-center">
                          <div class="btn-group">
-                             <button type="button" class="btn btn-sm btn-outline-secondary onclick="changeStyle()">
+                             <button type="button" class="btn btn-sm btn-outline-secondary onclick="changeStyle(event)">
                              Add
                              </button>
                          </div>
@@ -118,18 +117,32 @@ const removeBook = function(ev){
     ev.target.parentNode.remove()
 }
 
+// const changeStyle = function(){
+
+// }
+
 
 // 🛑🛑🔥 Doesn't work unless I open the dev tools or i click on the console
 const filterBooks = function(query){
     if(query.length > 2){
-        // const filteredBooks = booksArray.filter(book => {
-        //     book.title.toLowerCase().includes(query.toLowerCase())
-        // })
+        filteredBooks = booksArray.filter(book => {
+            book.title.toLowerCase().includes(query.toLowerCase())
+        })
+        displayBooks(filteredBooks) 
+    }
 
-        // displayBooks(filteredBooks)
-        console.log(query)
-        
-    } else {console.log('noooope')}
+    // if (query.length < 3) {
+    //     filteredBooks = booksArray;
+    //     displayBooks();
+    //     return;
+    // }
+
+    //   filteredBooks = booksArray.filter((book) =>
+    //     book.title.toLowerCase().includes(query.toLowerCase())
+    //   );
+
+    //   console.log(filteredBooks);
+    //   displayBooks(filteredBooks);
 }
 
 
@@ -161,7 +174,4 @@ const filterBooks = function(query){
 // }
 
 
-// const changeStyle = function(element){
-//     document.getElementById(`${element.asin}`).style.backgroundColor = red;
-// }
 
