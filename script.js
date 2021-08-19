@@ -31,8 +31,9 @@
 
 /* Global variables 🌍 */
 const row = document.querySelector('.row')
+
 let booksArray = []
-let filteredBooks = []
+// let filteredBooks = []
 
 
 // Fetches book && displays them
@@ -83,8 +84,10 @@ window.onload = () => {
 */
 
 const displayBooks = function(booksArr){
+    console.log(booksArr)
     row.innerHTML = ''
     booksArr.forEach(book => {
+        console.log(book)
         const bookCard = `
         <div class="col-12 col-sm-6 col-md-3 mb-3 pr-2">
              <div class="card mb-4 shadow-sm h-100">
@@ -124,10 +127,10 @@ const removeBook = function(ev){
 
 // 🛑🛑🔥 Doesn't work unless I open the dev tools or i click on the console
 const filterBooks = function(query){
-    if(query.length > 2){
-        filteredBooks = booksArray.filter(book => {
+    if(query.length > 2 || query === ''){
+        filteredBooks = booksArray.filter((book) => 
             book.title.toLowerCase().includes(query.toLowerCase())
-        })
+        )
         console.log(filteredBooks)
         displayBooks(filteredBooks) 
     }
