@@ -128,6 +128,7 @@ const filterBooks = function(query){
         filteredBooks = booksArray.filter(book => {
             book.title.toLowerCase().includes(query.toLowerCase())
         })
+        console.log(filteredBooks)
         displayBooks(filteredBooks) 
     }
 
