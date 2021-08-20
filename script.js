@@ -128,11 +128,15 @@ const removeBook = function(ev){
 // 🛑🛑🔥 Doesn't work unless I open the dev tools or i click on the console
 const filterBooks = function(query){
     if(query.length > 2 || query === ''){
-        filteredBooks = booksArray.filter((book) => 
-            book.title.toLowerCase().includes(query.toLowerCase())
-        )
+        filteredBooks = booksArray.filter(book => {
+            return book.title.toLowerCase().includes(query.toLowerCase())
+        }) 
+
+        // filteredBooks = booksArray.filter(book => book.title.toLowerCase().includes(query.toLowerCase())) 
+        
         console.log(filteredBooks)
         displayBooks(filteredBooks) 
+        
     }
 
     // if (query.length < 3) {
