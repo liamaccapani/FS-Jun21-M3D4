@@ -87,7 +87,7 @@ const displayBooks = function(booksArr){
     console.log(booksArr)
     row.innerHTML = ''
     booksArr.forEach(book => {
-        console.log(book)
+        // console.log(book)
         const bookCard = `
         <div class="col-12 col-sm-6 col-md-3 mb-3 pr-2">
              <div class="card mb-4 shadow-sm h-100">
@@ -125,7 +125,7 @@ const removeBook = function(ev){
 // }
 
 
-// 🛑🛑🔥 Doesn't work unless I open the dev tools or i click on the console
+// 🛑🛑🔥 return was missing || still need to prevent refresh of page with Bootstrap search bar
 const filterBooks = function(query){
     if(query.length > 2 || query === ''){
         filteredBooks = booksArray.filter(book => {
